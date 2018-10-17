@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>My projects</title>
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+
+    <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+  </head>
+
+  <body>
+
+    <!-- Header -->
+<div class="allcontain">
+  <div class="header">
+      <ul class="givusacall">
+        <li> mail us: miarhost@gmail.com </li>
+      </ul>
+      <ul class="logreg">
+                <% if !user_signed_in? %>
+                     
+        <li><span><%= link_to 'Register', new_user_registration_path %></span> | </li>
+        <li><span><%= link_to 'Login', new_user_session_path %></span> | </li>
+                        <% else %>
+          <li><%= link_to 'Edit Profile', edit_user_registration_path %> | </li>
+          <li><%= link_to 'Logout', destroy_user_session_path, method: :delete, :class => 'navbar-link' %></li>                               
+                      <% end %>    
+         </ul>
+  </div>
+  <!-- Navbar Up -->
+  <nav class="topnavbar navbar-default topnav">
+    <div class="container">
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle collapsed toggle-costume" data-toggle="collapse" data-target="#upmenu" aria-expanded="false">
+          <span class="sr-only"> Toggle navigaion</span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        
+      </div>   
+    </div>
+    <div class="collapse navbar-collapse" id="upmenu">
+      <ul class="nav navbar-nav" id="navbarontop">
+        <li class="active"><a href="<%= root_path %>">HOME</a> </li>
+        <li>
+          
+                    <a href="#" data-toggle="modal" data-target="#contact">CONTACT</a>
+        </li>
+      </ul>
+    </div>
+  </nav>
+</div>
+    <%= yield %>
+
+      <p class="notice"><%= notice %></p>
+       <p class="alert"><%= alert %></p>
+
+  </body>
+</html>
