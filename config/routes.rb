@@ -1,8 +1,15 @@
 Rails.application.routes.draw do
+  resources :projects
+devise_for :users
 
-  get 'main_pages/home'
-  devise_for :users
-  
-root to: "main_pages#home"
- 
+devise_scope :user do
+  authenticated :user do
+    root 'main_pages#home', as: :authenticated_root
+  end
+
+  unauthenticated do
+    root 'devise/sessions#new', as: :unauthenticated_root
+  end
+end
+
 end

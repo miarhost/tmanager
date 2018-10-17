@@ -14,10 +14,12 @@ gem 'turbolinks', '~> 5'
 gem 'jbuilder', '~> 2.5'
 gem 'devise'
 gem 'bootstrap-table-rails', '~> 1.12', '>= 1.12.1'
+gem 'jquery-turbolinks', '~> 2.1'
 gem 'bootsnap', '>= 1.1.0', require: false
 group :development, :test do
   gem 'sqlite3'
-   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
+  gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
+  gem 'rspec-rails', '~> 3.7', '>= 3.7.2'
 end
 
 group :development do
