@@ -1,5 +1,5 @@
 class ProjectsController < ApplicationController
-
+   skip_before_action :verify_authenticity_token
   before_action :authenticate_user!
   before_action :set_project, only: [:show, :edit, :update, :destroy]
 
@@ -8,6 +8,11 @@ class ProjectsController < ApplicationController
   end
 
   def show
+    @project = Project.find(params[:id])
+   
+    #@task.project_id = @project.id
+   
+    #@tasks = Task.all
   end
 
   def new

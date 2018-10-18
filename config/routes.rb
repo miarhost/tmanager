@@ -1,8 +1,14 @@
 Rails.application.routes.draw do
-  resources :tasks
-  resources :projects
-devise_for :users
+  
 
+devise_for :users
+   
+
+   resources :projects do 
+   	resources :tasks
+   end
+ resources :tasks
+ 
 devise_scope :user do
   authenticated :user do
     root 'main_pages#home', as: :authenticated_root

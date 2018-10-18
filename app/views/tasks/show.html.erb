@@ -12,7 +12,7 @@
 
 <p>
   <strong>Project:</strong>
-  <%= @task.project %>
+  <%= @task.project.title %>
 </p>
 
 <p>
@@ -21,9 +21,8 @@
 </p>
 
 <p>
-  <strong>Done:</strong>
-  <%= @task.done %>
+  <strong>Completed:</strong>
+  <%=  @task.done %>
 </p>
-
-<%= link_to 'Edit', edit_task_path(@task) %> |
-<%= link_to 'Back', tasks_path %>
+<%= link_to 'Edit', edit_project_task_path(@project, @task) %> |
+<%= link_to 'Back', project_tasks_path(@project, @tasks)  %>
