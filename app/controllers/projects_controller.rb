@@ -1,6 +1,6 @@
 class ProjectsController < ApplicationController
    skip_before_action :verify_authenticity_token
-  before_action :authenticate_user!
+  before_action :authenticate_user!, only: [:create, :destroy]
   before_action :set_project, only: [:show, :edit, :update, :destroy]
 
   def index
@@ -11,8 +11,8 @@ class ProjectsController < ApplicationController
     @project = Project.find(params[:id])
    
     #@task.project_id = @project.id
-   
-    #@tasks = Task.all
+   # @task = Task.new
+   # @tasks = Task.find_by(params[:project_id])
   end
 
   def new
@@ -69,6 +69,6 @@ class ProjectsController < ApplicationController
 
  
     def project_params
-      params.require(:project).permit(:title, :description, :user_id)
+      params.require(:project).permit(:title, :description)
     end
 end
