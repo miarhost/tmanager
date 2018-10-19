@@ -10,9 +10,8 @@ class ProjectsController < ApplicationController
   def show
     @project = Project.find(params[:id])
    
-    #@task.project_id = @project.id
-   # @task = Task.new
-   # @tasks = Task.find_by(params[:project_id])
+   # @task.project_id = @project.id
+  
   end
 
   def new

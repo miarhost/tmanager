@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_10_17_114048) do
+ActiveRecord::Schema.define(version: 2018_10_19_082057) do
 
   create_table "models", force: :cascade do |t|
     t.string "email", default: "", null: false
@@ -42,7 +42,9 @@ ActiveRecord::Schema.define(version: 2018_10_17_114048) do
     t.boolean "done"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "user_id"
     t.index ["project_id"], name: "index_tasks_on_project_id"
+    t.index ["user_id"], name: "index_tasks_on_user_id"
   end
 
   create_table "users", force: :cascade do |t|
