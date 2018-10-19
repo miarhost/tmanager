@@ -1,6 +1,6 @@
 class ProjectsController < ApplicationController
    skip_before_action :verify_authenticity_token
-  before_action :authenticate_user!, only: [:create, :destroy]
+  #before_action :authenticate_user!, only: [:create, :destroy]
   before_action :set_project, only: [:show, :edit, :update, :destroy]
 
   def index
@@ -9,9 +9,9 @@ class ProjectsController < ApplicationController
 
   def show
     @project = Project.find(params[:id])
-   
-   # @task.project_id = @project.id
-  
+   #@task = Task.new
+    #@task.project_id = @project.id
+ # @task.save
   end
 
   def new
@@ -25,9 +25,9 @@ class ProjectsController < ApplicationController
 
   def create
     @project = current_user.projects.build(project_params) 
-     if !user_signed_in?
-      redirect_to new_user_session_path
-     end
+     #if !user_signed_in?
+      #redirect_to new_user_session_path
+    # end
 
     respond_to do |format|
       if @project.save

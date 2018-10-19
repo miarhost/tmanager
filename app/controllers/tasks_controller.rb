@@ -1,10 +1,11 @@
 class TasksController < ApplicationController
   skip_before_action :verify_authenticity_token
- #before_action :set_project, only: [:create]
+ #around_action :set_project, only: [:create]
   before_action :set_task, only: [:show, :edit, :update, :destroy]
 
   def index
     @tasks = Task.all
+     @tasks.sort_by(&:priority)
   end
 
   def show
@@ -23,9 +24,9 @@ class TasksController < ApplicationController
 
   def create
      @task = current_user.tasks.build(task_params) 
-     @task.user_id = @task.user.id
-      @task.project_id = params[:project_id]
-    respond_to do |format|
+    #@task.user_id = params[:user_id]
+    @task.project_id = params[:project_id]
+       respond_to do |format|
       if @task.save
         format.html { redirect_to @task.project, notice: 'Task was successfully created.' }
         format.json { render :show, status: :created, location: @task.project }
@@ -63,9 +64,9 @@ class TasksController < ApplicationController
       @task = Task.find(params[:id])
     end
 
- #def set_project
- #@project = Project.find(params[:project_id])
- #end
+# def set_project
+# @project = Project.find(params[:id])
+# end
 
 
     def task_params
