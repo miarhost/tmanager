@@ -10,10 +10,6 @@ devise_for :users
     resources :tasks
    end
 
-  resources :users do
-  resources :tasks
-   end
-
  resources :projects 
  resources :tasks
  

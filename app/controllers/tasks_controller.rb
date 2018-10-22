@@ -1,18 +1,20 @@
 class TasksController < ApplicationController
   skip_before_action :verify_authenticity_token
- #before_action :set_project, only: [:create]
+ before_action :set_project#, only: [:create]
   before_action :set_task, only: [:show, :edit, :update, :destroy]
 
   def index
     @tasks = Task.all
-     @tasks.sort_by(&:priority)
+   
   end
-  def new
-    @task = Task.new
-  end
+
+
 
   def show
   @task = Task.find(params[:id])
+  end
+  def new
+    @task = Task.new
   end
 
   def edit
@@ -21,16 +23,12 @@ class TasksController < ApplicationController
 
 
   def create
-
-   @task = Task.new(task_params)
-  @task.project_id = params[:project_id]
-#@task.user_id = current_user.id
- @task.save
-if @task.save
- flash[:success] = 'Another task!'
-redirect_to projects_url
- else
-  redirect_to tasks_path
+    @task = @project.tasks.create(task_params)
+   if @task.save
+    flash[:success] = 'Another task!'
+     redirect_to project_task_url(@project, @task)
+   else
+    redirect_to project_url(@project)
   end
   
   end
@@ -62,9 +60,9 @@ redirect_to projects_url
       @task = Task.find(params[:id])
     end
 
-#def set_project
-#@project = Project.find(params[:project_id])
-#end
+def set_project
+@project = Project.find(params[:project_id])
+end
 
     def task_params
       params.require(:task).permit(:name, :priority, :deadline, :done, :project_id)

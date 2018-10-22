@@ -19,3 +19,5 @@
 <%= link_to 'Back', projects_path %>
 
 <%= render partial: 'tasks' %>
+
+<%= render partial: 'tasks/form', task: @task, project: @project %>
