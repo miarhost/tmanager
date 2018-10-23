@@ -7,12 +7,13 @@ devise_for :users
    end
 
   resources :projects do 
-    resources :tasks
+    resources :tasks 
    end
 
  resources :projects 
- resources :tasks
- 
+ resources :tasks do
+  post :sort_by_priority, :on => :collection
+ end
 devise_scope :user do
   authenticated :user do
     root 'main_pages#home', as: :authenticated_root

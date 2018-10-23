@@ -1,8 +1,7 @@
 class Task < ApplicationRecord
 
   belongs_to :project
+  scope :sort_by_priority, -> { order(priority: :acs) }
 
-  #belongs_to :user, :optional => true
-  
 
 end

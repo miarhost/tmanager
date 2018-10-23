@@ -1,14 +1,12 @@
 class TasksController < ApplicationController
   skip_before_action :verify_authenticity_token
- before_action :set_project#, only: [:create]
   before_action :set_task, only: [:show, :edit, :update, :destroy]
+  before_action :set_project
 
   def index
     @tasks = Task.all
    
   end
-
-
 
   def show
   @task = Task.find(params[:id])
@@ -18,7 +16,7 @@ class TasksController < ApplicationController
   end
 
   def edit
-     @task = Task.find(params[:id])
+    @task = Task.find(params[:id])
   end
 
 
@@ -54,17 +52,26 @@ class TasksController < ApplicationController
     end
   end
 
+ def sort_by_priority
+  @tasks = @project.tasks.all
+  respond_to do |format|
+    @tasks.sort_by(&:priority)
+    format.js { render :sort_by_priority, layout: false }
+   end
+  end
+
   private
 
     def set_task
       @task = Task.find(params[:id])
     end
 
-def set_project
-@project = Project.find(params[:project_id])
-end
+  def set_project
+   @project = Project.find(params[:project_id])
+  end
 
-    def task_params
-      params.require(:task).permit(:name, :priority, :deadline, :done, :project_id)
-    end
+  def task_params
+     params.require(:task).permit(:name, :priority, :deadline, :done)
+  end
+
 end
