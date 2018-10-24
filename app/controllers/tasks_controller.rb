@@ -1,8 +1,9 @@
 class TasksController < ApplicationController
   skip_before_action :verify_authenticity_token
-  before_action :set_task, only: [:show, :edit, :update, :destroy]
-  before_action :set_project
-
+ 
+  #, only: [:create]
+ before_action :set_task, only: [:show, :edit, :update, :destroy]
+ before_action :set_project
   def index
     @tasks = Task.all
    
@@ -11,6 +12,7 @@ class TasksController < ApplicationController
   def show
   @task = Task.find(params[:id])
   end
+
   def new
     @task = Task.new
   end
@@ -24,7 +26,7 @@ class TasksController < ApplicationController
     @task = @project.tasks.create(task_params)
    if @task.save
     flash[:success] = 'Another task!'
-     redirect_to project_task_url(@project, @task)
+     redirect_to project_path(@project)
    else
     redirect_to project_url(@project)
   end
@@ -44,10 +46,9 @@ class TasksController < ApplicationController
   end
 
   def destroy
-   @task = Task.find(params[:id])
     @task.destroy
     respond_to do |format|
-      format.html { redirect_to project_url(@task.project), notice: 'Task was successfully destroyed.' }
+      format.html { redirect_to project_path(@project), notice: 'Task was successfully destroyed.' }
       format.json { head :no_content }
     end
   end
@@ -62,13 +63,14 @@ class TasksController < ApplicationController
 
   private
 
-    def set_task
-      @task = Task.find(params[:id])
-    end
 
   def set_project
    @project = Project.find(params[:project_id])
   end
+
+      def set_task
+      @task = Task.find(params[:id])
+    end
 
   def task_params
      params.require(:task).permit(:name, :priority, :deadline, :done)
