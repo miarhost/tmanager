@@ -1,7 +1,8 @@
 <h1>Editing Task</h1>
 
-<%= render 'form', task: @task, project: @project %>
 
-<%= link_to 'Show', project_task_path(@project, task) %> |
-<%= link_to 'Back', project_tasks_path(@project, task) %>
+<%= render partial: 'tasks/form', task: @task, project: nil %>
+
+<%= link_to 'Show', project_task_path(@project,@task) %> |
+<%= link_to 'Back', project_path(@project) %>
 

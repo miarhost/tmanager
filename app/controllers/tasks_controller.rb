@@ -1,12 +1,11 @@
 class TasksController < ApplicationController
   skip_before_action :verify_authenticity_token
- 
-  #, only: [:create]
+ before_action :authenticate_user!
  before_action :set_task, only: [:show, :edit, :update, :destroy]
  before_action :set_project
+
   def index
     @tasks = Task.all
-   
   end
 
   def show
@@ -18,12 +17,12 @@ class TasksController < ApplicationController
   end
 
   def edit
-    @task = Task.find(params[:id])
+   @task = @project.tasks.find(params[:id])
   end
 
 
   def create
-    @task = @project.tasks.create(task_params)
+    @task = @project.tasks.build(task_params)
    if @task.save
     flash[:success] = 'Another task!'
      redirect_to project_path(@project)
@@ -36,7 +35,7 @@ class TasksController < ApplicationController
   def update
     respond_to do |format|
       if @task.update(task_params)
-        format.html { redirect_to @task, notice: 'Task was successfully updated.' }
+        format.html { redirect_to @project, notice: 'Task was successfully updated.' }
         format.json { render :show, status: :ok, location: @project }
       else
         format.html { render :edit }
@@ -54,7 +53,7 @@ class TasksController < ApplicationController
   end
 
  def sort_by_priority
-  @tasks = @project.tasks.all
+  @tasks = Task.all
   respond_to do |format|
     @tasks.sort_by(&:priority)
     format.js { render :sort_by_priority, layout: false }

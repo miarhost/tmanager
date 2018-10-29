@@ -1,21 +1,22 @@
-<%= form_with(model: [ @project, @project.tasks.build ], local: true) do |form| %>
+<%= form_with(model: @task, url: [ @project, @task ]) do |form| %>
+
   <div class="field">
     <%= form.label :name %>
-    <%= form.text_field :name %>
+    <%= form.text_field :name, id: :task_name %>
 
   <div class="field">
     <%= form.label :priority %>
-    <%= form.number_field :priority %>
+    <%= form.number_field :priority, id: :task_priority %>
   </div>
 
   <div class="field">
     <%= form.label :deadline %>
-    <%= form.datetime_select :deadline %>
+    <%= form.datetime_select :deadline, id: :task_deadline %>
   </div>
 
   <div class="field">
     <%= form.label :done %>
-    <%= form.check_box :done %>
+    <%= form.check_box :done, id: :task_done %>
   </div>
  
 

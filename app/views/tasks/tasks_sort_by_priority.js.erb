@@ -1,0 +1,13 @@
+$('#filter_content p').on('click',function(){
+    $('#filter_content').animate({
+        height: 0
+    }).addClass('open');
+    $('#tasks .item').fadeOut().fadeIn();
+    var type = $(this).text();
+        $.ajax({
+            url: 'tasks/sort_by_priority',
+            type: 'POST',
+            data: type,
+            dataType: 'script'
+        })
+})

@@ -7,7 +7,7 @@ devise_for :users
    end
 
   resources :projects do 
-    resources :tasks 
+    resources :tasks
    end
 
  resources :projects 
